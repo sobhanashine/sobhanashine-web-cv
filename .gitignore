@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local claude settings (machine-specific)
 .claude/settings.local.json
+.gstack/
+
+# source CV (the served copy lives in public/)
+/Sobhan Ashineh CV 1405.pdf
