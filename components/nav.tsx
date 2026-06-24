@@ -79,13 +79,23 @@ export function Nav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const iconLink =
     "grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition-colors duration-300 hover:border-line-strong hover:bg-elevated hover:text-ink";
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex justify-center px-4 py-3 sm:px-6 sm:py-4">
       <nav
-        className={`pointer-events-auto flex w-full max-w-5xl items-center justify-between gap-4 rounded-full border px-3 py-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`pointer-events-auto flex w-full max-w-6xl items-center justify-between gap-4 rounded-full border px-3 py-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           scrolled
             ? "border-line bg-[color-mix(in_oklab,var(--bg)_72%,transparent)] shadow-[var(--shadow-md)] backdrop-blur-xl"
             : "border-transparent bg-transparent"
@@ -106,7 +116,7 @@ export function Nav() {
         </a>
 
         {/* Desktop links */}
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
           {sections.map((s) => (
             <li key={s.id}>
               <a
@@ -152,7 +162,7 @@ export function Nav() {
           >
             <LinkedInIcon />
           </a>
-          <Magnetic className="hidden lg:inline-flex">
+          <Magnetic className="hidden xl:inline-flex">
             <a
               href={telHref}
               className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
@@ -177,7 +187,7 @@ export function Nav() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink md:hidden"
+            className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink lg:hidden"
           >
             <span className="relative block h-3 w-4">
               <span
@@ -209,7 +219,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="pointer-events-auto fixed inset-0 z-[-1] flex flex-col bg-[color-mix(in_oklab,var(--bg)_92%,transparent)] backdrop-blur-2xl md:hidden"
+            className="pointer-events-auto fixed inset-0 z-[-1] flex flex-col bg-[color-mix(in_oklab,var(--bg)_92%,transparent)] backdrop-blur-2xl lg:hidden"
           >
             <ul className="flex flex-1 flex-col items-center justify-center gap-1.5">
               {sections.map((s, i) => (
