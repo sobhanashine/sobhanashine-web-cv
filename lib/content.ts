@@ -222,6 +222,7 @@ export const projects: Project[] = [
       "next-intl",
       "WordPress",
     ],
+    url: "https://ofoq-web.vercel.app",
   },
   {
     name: "Aura Disposable",
