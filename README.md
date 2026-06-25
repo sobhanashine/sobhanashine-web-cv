@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sobhan Ashineh — Web CV
 
-## Getting Started
+An animated, interactive portfolio / CV site for **Sobhan Ashineh**, a backend-focused
+full-stack developer. Built as a single-page experience with a live architecture graph,
+scroll-driven reveals, and smooth scrolling.
 
-First, run the development server:
+🔗 **Live:** [ofoq-web.vercel.app](https://ofoq-web.vercel.app) <!-- update to the deployed CV URL -->
+
+## Tech stack
+
+- **[Next.js 16](https://nextjs.org)** (App Router) with **Turbopack**
+- **React 19** + **TypeScript**
+- **[Tailwind CSS 4](https://tailwindcss.com)** for styling
+- **[Motion](https://motion.dev)** for animation
+- **[Lenis](https://lenis.darkroom.engineering)** for smooth scrolling
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site. The page
+hot-reloads as you edit.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | Description                          |
+| --------------- | ------------------------------------ |
+| `npm run dev`   | Start the dev server (Turbopack)     |
+| `npm run build` | Production build                     |
+| `npm run start` | Serve the production build           |
+| `npm run lint`  | Run ESLint                           |
 
-## Learn More
+## Editing content
 
-To learn more about Next.js, take a look at the following resources:
+All personal data — profile, skills, experience, projects, education, and the hero
+architecture graph — lives in a **single source of truth**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+lib/content.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Edit values there and every section updates automatically. No need to touch the
+components for content changes.
 
-## Deploy on Vercel
+The downloadable CV is served from `public/sobhan-ashineh-cv.pdf` (linked from the
+hero's "Download CV" button).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  layout.tsx          Root layout, fonts, metadata
+  page.tsx            Section composition (Hero → About → … → Footer)
+  globals.css         Theme tokens and base styles
+components/           One file per section + shared UI primitives
+  hero.tsx            Landing + live architecture graph
+  architecture-graph.tsx
+  about.tsx  skills.tsx  experience.tsx  projects.tsx
+  other-projects.tsx  education.tsx  footer.tsx  nav.tsx
+  reveal.tsx  magnetic.tsx  scroll-progress.tsx  smooth-scroll.tsx
+  section-heading.tsx
+lib/
+  content.ts          All site content (edit here)
+```
+
+## Deployment
+
+Optimized for [Vercel](https://vercel.com). Push to `main` and Vercel builds and
+deploys automatically. See the
+[Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying)
+for other targets.
