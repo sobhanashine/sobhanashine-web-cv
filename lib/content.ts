@@ -65,17 +65,17 @@ export const skillGroups: SkillGroup[] = [
     items: [
       "Next.js",
       "Nuxt.js",
-      "Vue.js",
       "React.js",
+      "Vue.js",
       "JavaScript",
       "Tailwind CSS",
       "SASS",
-      "HTML / CSS",
+      "Bootstrap",
     ],
   },
   {
     label: "Data & ORMs",
-    items: ["PostgreSQL", "MongoDB", "Redis", "Prisma"],
+    items: ["PostgreSQL", "MongoDB", "Redis", "Prisma", "Drizzle ORM"],
   },
   {
     label: "Architecture & Web",
@@ -120,7 +120,7 @@ export const experience: Experience[] = [
   {
     company: "Droplinked",
     role: "NestJS Developer",
-    location: "Remote",
+    location: "Remote · Contract",
     period: "Jul 2024 — Feb 2026",
     start: "2024",
     end: "2026",
