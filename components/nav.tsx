@@ -112,16 +112,20 @@ export function Nav() {
             : "border-transparent bg-transparent"
         }`}
       >
-        {/* Wordmark */}
+        {/* Wordmark — Latin uses the mono brand face; Persian shows the
+            full name in Vazirmatn (inherited sans) so the script renders
+            cleanly instead of falling back through the monospace stack. */}
         <a
           href="#home"
-          className="group flex items-center gap-2 font-mono text-sm font-medium tracking-tight"
+          className={`group flex items-center gap-2 text-sm font-medium tracking-tight ${
+            lang === "fa" ? "" : "font-mono"
+          }`}
         >
           <span className="grid h-7 w-7 place-items-center rounded-md bg-accent text-[13px] font-bold text-[var(--accent-ink)]">
             S
           </span>
           <span className="hidden sm:inline">
-            {profile.lastName.toLowerCase()}
+            {lang === "fa" ? profile.name : profile.lastName.toLowerCase()}
             <span className="text-accent">.</span>
           </span>
         </a>
@@ -173,24 +177,30 @@ export function Nav() {
           >
             <LinkedInIcon />
           </a>
-          <Magnetic className="hidden xl:inline-flex">
-            <a
-              href={telHref}
-              className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
-            >
-              <PhoneIcon />
-              {ui.nav.callMe}
-            </a>
-          </Magnetic>
-          <Magnetic className="hidden sm:inline-flex">
-            <a
-              href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[var(--accent-ink)] transition-transform duration-300 hover:scale-[1.03]"
-            >
-              <MailIcon />
-              {ui.nav.emailMe}
-            </a>
-          </Magnetic>
+          {/* Responsive visibility lives on the wrapper: Magnetic forces
+              display:inline-flex inline, which would override `hidden`. */}
+          <span className="hidden xl:inline-flex">
+            <Magnetic>
+              <a
+                href={telHref}
+                className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
+              >
+                <PhoneIcon />
+                {ui.nav.callMe}
+              </a>
+            </Magnetic>
+          </span>
+          <span className="hidden sm:inline-flex">
+            <Magnetic>
+              <a
+                href={`mailto:${profile.email}`}
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[var(--accent-ink)] transition-transform duration-300 hover:scale-[1.03]"
+              >
+                <MailIcon />
+                {ui.nav.emailMe}
+              </a>
+            </Magnetic>
+          </span>
 
           {/* Language toggle */}
           <button
