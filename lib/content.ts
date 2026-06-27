@@ -263,7 +263,7 @@ const en = {
 
   // Interface strings — labels, buttons, micro-copy that don't live in a data list.
   ui: {
-    nav: { callMe: "Call me", emailMe: "Email me", cv: "CV", downloadCv: "Download CV", switchTo: "FA", switchAria: "Switch to Persian", openMenu: "Open menu", closeMenu: "Close menu" },
+    nav: { emailMe: "Email me", cv: "CV", downloadCv: "Download CV", switchTo: "FA", switchAria: "Switch to Persian", openMenu: "Open menu", closeMenu: "Close menu" },
     hero: {
       taglinePre: "I build the ",
       taglineHighlight: "systems",
@@ -525,7 +525,7 @@ const fa: Content = {
   ],
 
   ui: {
-    nav: { callMe: "تماس با من", emailMe: "ایمیل به من", cv: "رزومه", downloadCv: "دانلود رزومه", switchTo: "EN", switchAria: "تغییر به انگلیسی", openMenu: "باز کردن منو", closeMenu: "بستن منو" },
+    nav: { emailMe: "ایمیل به من", cv: "رزومه", downloadCv: "دانلود رزومه", switchTo: "EN", switchAria: "تغییر به انگلیسی", openMenu: "باز کردن منو", closeMenu: "بستن منو" },
     hero: {
       taglinePre: "من ",
       taglineHighlight: "سیستم‌هایی",
