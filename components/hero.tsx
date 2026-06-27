@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { profile } from "@/lib/content";
+import { useContent } from "@/lib/i18n";
 import { ArchitectureGraph } from "@/components/architecture-graph";
 import { Magnetic } from "@/components/magnetic";
 
 export function Hero() {
+  const { profile, ui } = useContent();
   const reduced = useReducedMotion();
 
   const container: Variants = {
@@ -46,18 +47,20 @@ export function Hero() {
               variants={item}
               className="mb-3 block text-base font-medium tracking-tight text-muted sm:text-lg"
             >
-              {profile.name} — {profile.role}
+              {profile.name}
+              {ui.hero.nameRoleSep}
+              {profile.role}
             </motion.span>
             <motion.span
               variants={item}
               className="block text-[clamp(2.5rem,7vw,5rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink"
             >
-              I build the{" "}
+              {ui.hero.taglinePre}
               <span className="relative inline-block whitespace-nowrap text-accent">
-                systems
+                {ui.hero.taglineHighlight}
                 {!reduced && <span className="caret" aria-hidden="true" />}
-              </span>{" "}
-              behind the screen.
+              </span>
+              {ui.hero.taglinePost}
             </motion.span>
           </h1>
 
@@ -65,9 +68,7 @@ export function Hero() {
             variants={item}
             className="prose-lead mt-7 text-lg leading-relaxed text-muted"
           >
-            Scalable backends in NestJS &amp; Node, real-time systems and AI
-            features — and the SEO-fast frontends in front of them. {profile.yearsExperience}{" "}
-            years, backend-first and full-stack.
+            {ui.hero.lead.replace("{years}", profile.yearsExperience)}
           </motion.p>
 
           <motion.div
@@ -79,7 +80,7 @@ export function Hero() {
                 href="#projects"
                 className="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-[var(--accent-ink)] shadow-[var(--shadow-md)] transition-transform duration-300 hover:scale-[1.02]"
               >
-                View work
+                {ui.hero.viewWork}
                 <svg
                   width="14"
                   height="14"
@@ -114,7 +115,7 @@ export function Hero() {
               >
                 <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" />
               </svg>
-              Download CV
+              {ui.hero.downloadCv}
             </a>
           </motion.div>
 
@@ -123,8 +124,8 @@ export function Hero() {
             className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6"
           >
             {[
-              { k: "Based in", v: profile.location },
-              { k: "Email", v: profile.email, href: `mailto:${profile.email}` },
+              { k: ui.hero.basedIn, v: profile.location },
+              { k: ui.hero.email, v: profile.email, href: `mailto:${profile.email}` },
             ].map((m) => (
               <div key={m.k}>
                 <dt className="label !text-[0.62rem]">{m.k}</dt>
@@ -152,12 +153,12 @@ export function Hero() {
           <div className="relative aspect-square overflow-hidden rounded-2xl border border-line bg-[color-mix(in_oklab,var(--surface)_60%,transparent)] shadow-[var(--shadow-lg)] backdrop-blur-sm sm:aspect-[4/3] lg:aspect-square">
             {/* panel header */}
             <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between border-b border-line px-4 py-2.5">
-              <span className="font-mono text-[0.7rem] tracking-wide text-muted">
-                // system.map
+              <span className="font-mono text-[0.7rem] tracking-wide text-muted" dir="ltr">
+                {ui.hero.panelTitle}
               </span>
               <span className="flex items-center gap-1.5 font-mono text-[0.7rem] text-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                live
+                {ui.hero.live}
               </span>
             </div>
             {/* corner ticks */}
@@ -171,7 +172,7 @@ export function Hero() {
             </div>
           </div>
           <p className="mt-3 text-center font-mono text-[0.7rem] text-faint">
-            move your cursor through the stack
+            {ui.hero.cursorHint}
           </p>
         </motion.div>
       </div>
@@ -179,13 +180,13 @@ export function Hero() {
       {/* scroll cue */}
       <motion.a
         href="#about"
-        aria-label="Scroll to about"
+        aria-label={ui.hero.scrollToAbout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}
         className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-faint lg:flex"
       >
-        <span className="label !text-[0.6rem]">scroll</span>
+        <span className="label !text-[0.6rem]">{ui.hero.scroll}</span>
         <span className="flex h-9 w-5 justify-center rounded-full border border-line-strong pt-1.5">
           <motion.span
             animate={reduced ? {} : { y: [0, 8, 0] }}

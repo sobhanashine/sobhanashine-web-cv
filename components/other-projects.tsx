@@ -1,12 +1,16 @@
-import { otherProjects } from "@/lib/content";
+"use client";
+
+import { useContent } from "@/lib/i18n";
 import { Reveal } from "@/components/reveal";
 
 export function OtherProjects() {
+  const { otherProjects, ui } = useContent();
   return (
     <section className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-24 sm:px-8">
       <Reveal>
         <p className="font-mono text-[0.8rem] text-muted">
-          <span className="text-faint">// </span>also shipped
+          <span className="text-faint">// </span>
+          {ui.otherProjects.tag}
         </p>
       </Reveal>
 

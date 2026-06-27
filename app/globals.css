@@ -79,12 +79,43 @@
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
 
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fonts live in a non-inline @theme so the `font-sans` / `font-mono`
+   utilities resolve `var(--font-*)` at runtime — letting [data-lang="fa"]
+   swap in Vazirmatn below. */
+@theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+}
 
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+/* ------------------------------------------------------------------ */
+/*  Persian / RTL — Vazirmatn + script-safe typography                 */
+/* ------------------------------------------------------------------ */
+
+[data-lang="fa"] {
+  /* Latin glyphs (tech names, digits) keep their original face via the
+     fallback; Persian glyphs render in Vazirmatn. Mono keeps Geist Mono
+     first so code-style tokens stay monospaced. */
+  --font-sans: var(--font-vazir), var(--font-geist-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-display: var(--font-vazir), var(--font-bricolage),
+    var(--font-geist-sans), sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-vazir), ui-monospace,
+    monospace;
+}
+
+/* Letter-spacing breaks Persian's cursive joining — neutralize it
+   everywhere in RTL (tracking utilities, display tracking, .label). */
+[data-lang="fa"] * {
+  letter-spacing: normal !important;
+}
+
+[data-lang="fa"] .font-display {
+  letter-spacing: normal;
 }
 
 /* ------------------------------------------------------------------ */

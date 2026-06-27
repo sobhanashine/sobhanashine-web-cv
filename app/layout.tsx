@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Bricolage_Grotesque,
+  Vazirmatn,
+} from "next/font/google";
 import "./globals.css";
 import { profile } from "@/lib/content";
+import { LanguageProvider, noFlashScript } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Nav } from "@/components/nav";
 import { ScrollProgress } from "@/components/scroll-progress";
@@ -21,6 +27,14 @@ const geistMono = Geist_Mono({
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+// Persian (RTL) typeface — applied via [data-lang="fa"] in globals.css.
+const vazirmatn = Vazirmatn({
+  variable: "--font-vazir",
+  subsets: ["arabic", "latin"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -86,28 +100,37 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      dir="ltr"
       data-theme="dark"
+      data-lang="en"
+      suppressHydrationWarning
       style={{ colorScheme: "dark" }}
-      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${vazirmatn.variable} antialiased`}
     >
       <head>
+        <script
+          // Applies the saved language to <html> before paint (no RTL flash).
+          dangerouslySetInnerHTML={{ __html: noFlashScript }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
       <body>
-        <SmoothScroll />
-        <ScrollProgress />
-        <div className="grain" aria-hidden="true" />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--accent-ink)]"
-        >
-          Skip to content
-        </a>
-        <Nav />
-        <main id="main">{children}</main>
+        <LanguageProvider>
+          <SmoothScroll />
+          <ScrollProgress />
+          <div className="grain" aria-hidden="true" />
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--accent-ink)]"
+          >
+            Skip to content
+          </a>
+          <Nav />
+          <main id="main">{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );

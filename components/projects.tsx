@@ -1,26 +1,28 @@
 "use client";
 
 import { useRef } from "react";
-import { projects } from "@/lib/content";
+import type { Project } from "@/lib/content";
+import { useContent } from "@/lib/i18n";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
 
 export function Projects() {
+  const { projects, ui } = useContent();
   return (
     <section
       id="projects"
       className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32"
     >
       <SectionHeading
-        tag="selected builds"
-        title="Things I've shipped"
-        lead="A few projects where I owned meaningful surface area — from headless architecture to real-time features."
+        tag={ui.projects.tag}
+        title={ui.projects.title}
+        lead={ui.projects.lead}
       />
 
       <div className="mt-14 space-y-6">
         {projects.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.05}>
-            <ProjectCard project={p} />
+            <ProjectCard project={p} builtWith={ui.projects.builtWith} />
           </Reveal>
         ))}
       </div>
@@ -28,7 +30,13 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: (typeof projects)[number] }) {
+function ProjectCard({
+  project,
+  builtWith,
+}: {
+  project: Project;
+  builtWith: string;
+}) {
   const ref = useRef<HTMLElement>(null);
 
   function onMove(e: React.PointerEvent) {
@@ -123,7 +131,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
         {/* stack rail */}
         <div className="lg:border-l lg:border-line lg:pl-8">
           <p className="font-mono text-[0.68rem] uppercase tracking-wider text-faint">
-            Built with
+            {builtWith}
           </p>
           <ul className="mt-3 flex flex-wrap gap-2 lg:flex-col lg:gap-0">
             {project.stack.map((s, si) => (

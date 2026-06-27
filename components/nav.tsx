@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { profile, sections } from "@/lib/content";
+import { useContent, useLang } from "@/lib/i18n";
 import { Magnetic } from "@/components/magnetic";
 
 function GitHubIcon() {
@@ -38,14 +38,25 @@ function PhoneIcon() {
   );
 }
 
-// tel: link needs digits only (strip spaces from the display number).
-const telHref = `tel:${profile.phone.replace(/\s/g, "")}`;
+function GlobeIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+    </svg>
+  );
+}
 
 export function Nav() {
+  const { profile, sections, ui } = useContent();
+  const { lang, toggle } = useLang();
   const [active, setActive] = useState<string>("home");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const reduced = useReducedMotion();
+
+  // tel: link needs digits only (strip spaces from the display number).
+  const telHref = `tel:${profile.phone.replace(/\s/g, "")}`;
 
   useEffect(() => {
     const els = sections
@@ -168,7 +179,7 @@ export function Nav() {
               className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
             >
               <PhoneIcon />
-              Call me
+              {ui.nav.callMe}
             </a>
           </Magnetic>
           <Magnetic className="hidden sm:inline-flex">
@@ -177,15 +188,26 @@ export function Nav() {
               className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[var(--accent-ink)] transition-transform duration-300 hover:scale-[1.03]"
             >
               <MailIcon />
-              Email me
+              {ui.nav.emailMe}
             </a>
           </Magnetic>
+
+          {/* Language toggle */}
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={ui.nav.switchAria}
+            className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3 font-mono text-[0.78rem] font-medium text-muted transition-colors duration-300 hover:border-line-strong hover:bg-elevated hover:text-ink"
+          >
+            <GlobeIcon />
+            {ui.nav.switchTo}
+          </button>
 
           {/* Mobile menu button */}
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? ui.nav.closeMenu : ui.nav.openMenu}
             aria-expanded={open}
             className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink lg:hidden"
           >
@@ -255,7 +277,7 @@ export function Nav() {
                 className="inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-[var(--accent-ink)]"
               >
                 <MailIcon />
-                Email me
+                {ui.nav.emailMe}
               </a>
               <a
                 href={telHref}
@@ -263,7 +285,7 @@ export function Nav() {
                 className="inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full border border-line px-6 py-3.5 text-base font-semibold text-ink"
               >
                 <PhoneIcon />
-                Call me
+                {ui.nav.callMe}
               </a>
               <div className="flex items-center gap-3">
                 <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className={iconLink}>
@@ -272,8 +294,8 @@ export function Nav() {
                 <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={iconLink}>
                   <LinkedInIcon />
                 </a>
-                <a href={profile.resume} download aria-label="Download CV" className={`${iconLink} w-auto px-4 font-mono text-[0.75rem]`}>
-                  CV
+                <a href={profile.resume} download aria-label={ui.nav.downloadCv} className={`${iconLink} w-auto px-4 font-mono text-[0.75rem]`}>
+                  {ui.nav.cv}
                 </a>
               </div>
             </motion.div>

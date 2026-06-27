@@ -1,14 +1,17 @@
-import { skillGroups } from "@/lib/content";
+"use client";
+
+import { useContent } from "@/lib/i18n";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
 
 export function Skills() {
+  const { skillGroups, ui } = useContent();
   return (
     <section className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 sm:px-8 lg:py-28">
       <SectionHeading
-        tag="stack"
-        title="The tools I reach for"
-        lead="Six clusters I've shipped production work with — from the database up to the pixels."
+        tag={ui.skills.tag}
+        title={ui.skills.title}
+        lead={ui.skills.lead}
       />
 
       <div className="mt-12 border-t border-line">

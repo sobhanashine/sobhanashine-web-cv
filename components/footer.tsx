@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { profile } from "@/lib/content";
+import { useContent } from "@/lib/i18n";
 import { Reveal } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 
-const socials = [
-  { label: "GitHub", href: profile.github, handle: "@sobhanashine" },
-  { label: "LinkedIn", href: profile.linkedin, handle: "in/sobhan-ashineh" },
-  { label: "Email", href: `mailto:${profile.email}`, handle: profile.email },
-  { label: "Phone", href: `tel:${profile.phone.replace(/\s/g, "")}`, handle: profile.phone },
-];
-
 export function Footer() {
+  const { profile, ui } = useContent();
   const year = new Date().getFullYear();
   const [copied, setCopied] = useState(false);
+
+  const socials = [
+    { label: ui.footer.socials.github, href: profile.github, handle: "@sobhanashine" },
+    { label: ui.footer.socials.linkedin, href: profile.linkedin, handle: "in/sobhan-ashineh" },
+    { label: ui.footer.socials.email, href: `mailto:${profile.email}`, handle: profile.email },
+    { label: ui.footer.socials.phone, href: `tel:${profile.phone.replace(/\s/g, "")}`, handle: profile.phone },
+  ];
 
   async function copyEmail() {
     try {
@@ -42,19 +43,20 @@ export function Footer() {
         <div className="relative">
           <Reveal>
             <p className="font-mono text-[0.8rem] text-accent">
-              <span className="text-faint">// </span>get in touch
+              <span className="text-faint">// </span>
+              {ui.footer.tag}
             </p>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-display mt-4 max-w-2xl text-balance text-[clamp(2.2rem,6vw,4rem)] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink">
-              Let&apos;s build something that holds up.
+              {ui.footer.title}
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="prose-lead mt-5 text-lg leading-relaxed text-muted">
-              I&apos;m {profile.availability.toLowerCase()} and happy to talk
-              backend architecture, full-stack builds, or AI features. The
-              fastest way to reach me is email.
+              {ui.footer.leadPre}
+              {profile.availability.toLowerCase()}
+              {ui.footer.leadPost}
             </p>
           </Reveal>
 
@@ -90,7 +92,7 @@ export function Footer() {
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="text-accent">
                       <path d="M20 6 9 17l-5-5" />
                     </svg>
-                    Copied!
+                    {ui.footer.copied}
                   </>
                 ) : (
                   <>
@@ -98,7 +100,7 @@ export function Footer() {
                       <rect x="9" y="9" width="11" height="11" rx="2" />
                       <path d="M5 15V5a2 2 0 0 1 2-2h10" />
                     </svg>
-                    Copy email
+                    {ui.footer.copyEmail}
                   </>
                 )}
               </button>
@@ -107,7 +109,7 @@ export function Footer() {
                 download
                 className="inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-300 hover:bg-elevated"
               >
-                Download CV
+                {ui.footer.downloadCv}
               </a>
             </div>
           </Reveal>
@@ -147,13 +149,13 @@ export function Footer() {
       {/* base bar */}
       <div className="mt-8 flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
         <p className="font-mono text-[0.72rem] text-faint">
-          © {year} {profile.name}. Built with Next.js, TypeScript &amp; Tailwind.
+          © {year} {profile.name}. {ui.footer.builtWith}
         </p>
         <a
           href="#home"
           className="group inline-flex items-center gap-2 font-mono text-[0.72rem] text-faint transition-colors hover:text-ink"
         >
-          Back to top
+          {ui.footer.backToTop}
           <span className="transition-transform duration-300 group-hover:-translate-y-0.5">
             ↑
           </span>

@@ -1,8 +1,11 @@
-import { about } from "@/lib/content";
+"use client";
+
+import { useContent } from "@/lib/i18n";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
 
 export function About() {
+  const { about, ui } = useContent();
   return (
     <section
       id="about"
@@ -10,7 +13,7 @@ export function About() {
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_0.8fr] lg:gap-20">
         <div>
-          <SectionHeading tag="whoami" title="Backend-first. Frontend-fluent." />
+          <SectionHeading tag={ui.about.tag} title={ui.about.title} />
           <div className="mt-8 space-y-5">
             {about.paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 0.05} as="p">

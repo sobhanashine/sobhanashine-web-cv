@@ -1,17 +1,22 @@
-import { experience } from "@/lib/content";
+"use client";
+
+import { useContent, useLang } from "@/lib/i18n";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
 
 export function Experience() {
+  const { experience, ui } = useContent();
+  const { dir } = useLang();
+  const rtl = dir === "rtl";
   return (
     <section
       id="work"
       className="mx-auto max-w-6xl scroll-mt-24 px-5 py-24 sm:px-8 lg:py-32"
     >
       <SectionHeading
-        tag="work"
-        title="Four years, shipping systems"
-        lead="Roles where I owned backend architecture and stepped across the full stack when it mattered."
+        tag={ui.experience.tag}
+        title={ui.experience.title}
+        lead={ui.experience.lead}
       />
 
       <ol className="mt-14">
@@ -32,10 +37,18 @@ export function Experience() {
                 </Reveal>
               </div>
 
-              {/* Right: content with timeline line */}
-              <div className="relative border-line pb-2 sm:border-l sm:pl-8">
+              {/* Right: content with timeline line (flips side in RTL) */}
+              <div
+                className={`relative border-line pb-2 ${
+                  rtl ? "sm:border-r sm:pr-8" : "sm:border-l sm:pl-8"
+                }`}
+              >
                 {/* node */}
-                <span className="absolute -left-[5px] top-1.5 hidden h-2.5 w-2.5 rounded-full border-2 border-accent bg-bg transition-all duration-300 group-hover:scale-125 group-hover:bg-accent sm:block" />
+                <span
+                  className={`absolute top-1.5 hidden h-2.5 w-2.5 rounded-full border-2 border-accent bg-bg transition-all duration-300 group-hover:scale-125 group-hover:bg-accent sm:block ${
+                    rtl ? "-right-[5px]" : "-left-[5px]"
+                  }`}
+                />
 
                 <Reveal>
                   <h3 className="font-display text-2xl font-semibold tracking-tight text-ink">
