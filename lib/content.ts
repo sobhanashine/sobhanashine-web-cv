@@ -528,8 +528,8 @@ const fa: Content = {
     nav: { emailMe: "ایمیل به من", cv: "رزومه", downloadCv: "دانلود رزومه", switchTo: "EN", switchAria: "تغییر به انگلیسی", openMenu: "باز کردن منو", closeMenu: "بستن منو" },
     hero: {
       taglinePre: "من ",
-      taglineHighlight: "سیستم‌هایی",
-      taglinePost: " می‌سازم که پشت صفحه‌اند.",
+      taglineHighlight: "سیستم‌های",
+      taglinePost: " پشت صفحه نمایش را توسعه می‌دهم.",
       nameRoleSep: " — ",
       lead: "بک‌اندهای مقیاس‌پذیر با NestJS و Node، سیستم‌های بلادرنگ و قابلیت‌های هوش مصنوعی — و فرانت‌اندهای سریع و سئوپسندی که جلوی آن‌ها قرار می‌گیرند. {years} سال، بک‌اندمحور و فول‌استک.",
       viewWork: "دیدن نمونه‌کارها",
