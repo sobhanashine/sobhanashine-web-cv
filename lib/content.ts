@@ -263,7 +263,7 @@ const en = {
 
   // Interface strings — labels, buttons, micro-copy that don't live in a data list.
   ui: {
-    nav: { callMe: "Call me", emailMe: "Email me", cv: "CV", downloadCv: "Download CV", switchTo: "فارسی", switchAria: "Switch to Persian", openMenu: "Open menu", closeMenu: "Close menu" },
+    nav: { callMe: "Call me", emailMe: "Email me", cv: "CV", downloadCv: "Download CV", switchTo: "FA", switchAria: "Switch to Persian", openMenu: "Open menu", closeMenu: "Close menu" },
     hero: {
       taglinePre: "I build the ",
       taglineHighlight: "systems",

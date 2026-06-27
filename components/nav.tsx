@@ -106,32 +106,37 @@ export function Nav() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex justify-center px-4 py-3 sm:px-6 sm:py-4">
       <nav
-        className={`pointer-events-auto flex w-full max-w-6xl items-center justify-between gap-4 rounded-full border px-3 py-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`pointer-events-auto flex w-full max-w-6xl items-center gap-4 rounded-full border px-3 py-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           scrolled
             ? "border-line bg-[color-mix(in_oklab,var(--bg)_72%,transparent)] shadow-[var(--shadow-md)] backdrop-blur-xl"
             : "border-transparent bg-transparent"
         }`}
       >
-        {/* Wordmark — Latin uses the mono brand face; Persian shows the
-            full name in Vazirmatn (inherited sans) so the script renders
-            cleanly instead of falling back through the monospace stack. */}
-        <a
-          href="#home"
-          className={`group flex items-center gap-2 text-sm font-medium tracking-tight ${
-            lang === "fa" ? "" : "font-mono"
-          }`}
-        >
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-accent text-[13px] font-bold text-[var(--accent-ink)]">
-            S
-          </span>
-          <span className="hidden sm:inline">
-            {lang === "fa" ? profile.name : profile.lastName.toLowerCase()}
-            <span className="text-accent">.</span>
-          </span>
-        </a>
+        {/* Left zone — flex-1 keeps the centered links balanced against the
+            right cluster instead of overlapping it (the links used to be
+            absolutely positioned, which collided once the cluster grew). */}
+        <div className="flex flex-1 justify-start">
+          {/* Wordmark — Latin uses the mono brand face; Persian shows the
+              full name in Vazirmatn (inherited sans) so the script renders
+              cleanly instead of falling back through the monospace stack. */}
+          <a
+            href="#home"
+            className={`group flex items-center gap-2 text-sm font-medium tracking-tight ${
+              lang === "fa" ? "" : "font-mono"
+            }`}
+          >
+            <span className="grid h-7 w-7 place-items-center rounded-md bg-accent text-[13px] font-bold text-[var(--accent-ink)]">
+              S
+            </span>
+            <span className="hidden sm:inline">
+              {lang === "fa" ? profile.name : profile.lastName.toLowerCase()}
+              <span className="text-accent">.</span>
+            </span>
+          </a>
+        </div>
 
-        {/* Desktop links */}
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
+        {/* Desktop links — centered zone */}
+        <ul className="hidden shrink-0 items-center gap-1 lg:flex">
           {sections.map((s) => (
             <li key={s.id}>
               <a
@@ -157,8 +162,10 @@ export function Nav() {
           ))}
         </ul>
 
-        {/* Right cluster */}
-        <div className="flex items-center gap-2">
+        {/* Right zone — flex-1 mirrors the left zone so the link group
+            stays centered between them and never overlaps the cluster. */}
+        <div className="flex flex-1 justify-end">
+          <div className="flex items-center gap-2">
           <a
             href={profile.github}
             target="_blank"
@@ -183,7 +190,7 @@ export function Nav() {
             <Magnetic>
               <a
                 href={telHref}
-                className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
+                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink transition-colors duration-300 hover:border-line-strong hover:bg-elevated"
               >
                 <PhoneIcon />
                 {ui.nav.callMe}
@@ -194,7 +201,7 @@ export function Nav() {
             <Magnetic>
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[var(--accent-ink)] transition-transform duration-300 hover:scale-[1.03]"
+                className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[var(--accent-ink)] transition-transform duration-300 hover:scale-[1.03]"
               >
                 <MailIcon />
                 {ui.nav.emailMe}
@@ -207,7 +214,7 @@ export function Nav() {
             type="button"
             onClick={toggle}
             aria-label={ui.nav.switchAria}
-            className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3 font-mono text-[0.78rem] font-medium text-muted transition-colors duration-300 hover:border-line-strong hover:bg-elevated hover:text-ink"
+            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-line px-2.5 font-mono text-[0.78rem] font-medium text-muted transition-colors duration-300 hover:border-line-strong hover:bg-elevated hover:text-ink"
           >
             <GlobeIcon />
             {ui.nav.switchTo}
@@ -240,6 +247,7 @@ export function Nav() {
               />
             </span>
           </button>
+          </div>
         </div>
       </nav>
 
