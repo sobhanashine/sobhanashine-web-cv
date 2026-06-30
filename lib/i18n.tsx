@@ -40,12 +40,12 @@ function applyToDocument(lang: Lang) {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("fa");
 
   // Hydrate from the value the no-flash script already applied to <html>.
   useEffect(() => {
     const fromDom = document.documentElement.dataset.lang;
-    let initial: Lang = fromDom === "fa" ? "fa" : "en";
+    let initial: Lang = fromDom === "en" ? "en" : "fa";
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved === "fa" || saved === "en") initial = saved;
@@ -95,7 +95,8 @@ export function useContent() {
 }
 
 /**
- * Inline script string that sets <html> lang/dir before first paint,
- * preventing a flash of LTR/English when Persian was previously chosen.
+ * Inline script string that sets <html> lang/dir before first paint.
+ * Persian is the default; this only flips to LTR/English when the visitor
+ * has explicitly chosen English before (preventing an RTL→LTR flash).
  */
-export const noFlashScript = `(function(){try{var l=localStorage.getItem('${STORAGE_KEY}');if(l==='fa'){var e=document.documentElement;e.lang='fa';e.dir='rtl';e.dataset.lang='fa';}}catch(e){}})();`;
+export const noFlashScript = `(function(){try{var l=localStorage.getItem('${STORAGE_KEY}');if(l==='en'){var e=document.documentElement;e.lang='en';e.dir='ltr';e.dataset.lang='en';}}catch(e){}})();`;

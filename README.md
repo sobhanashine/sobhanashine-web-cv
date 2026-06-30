@@ -48,6 +48,28 @@ components for content changes.
 The downloadable CV is served from `public/sobhan-ashineh-cv.pdf` (linked from the
 hero's "Download CV" button).
 
+## AI chat widget ("Ask about Sobhan")
+
+A floating chat widget (bottom corner, responsive on desktop + mobile, bilingual
+EN/FA) lets visitors ask questions and get AI answers grounded in the data from
+`lib/content.ts`. It's powered by **[Groq](https://groq.com)**, which has a
+generous **free** tier (no credit card).
+
+- **Component:** `components/chat-widget.tsx` (mounted in `app/layout.tsx`)
+- **API route:** `app/api/chat/route.ts` — keeps the key server-side and builds
+  the system prompt from `lib/content.ts`, so answers stay accurate and update
+  automatically when you edit your content.
+
+Until a key is set, the widget runs in a **simulation mode** that still responds
+and explains how to enable the live AI. To turn on live answers (free, ~2 min):
+
+1. Create a free key at **[console.groq.com/keys](https://console.groq.com/keys)**.
+2. Put it in `.env.local`: `GROQ_API_KEY=gsk_...`, then restart `npm run dev`.
+3. When deploying (e.g. Vercel), add `GROQ_API_KEY` in the host's
+   **Environment Variables** settings.
+
+Optionally set `GROQ_MODEL` to override the default `llama-3.3-70b-versatile`.
+
 ## Project structure
 
 ```

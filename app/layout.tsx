@@ -11,6 +11,7 @@ import { LanguageProvider, noFlashScript } from "@/lib/i18n";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Nav } from "@/components/nav";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { ChatWidget } from "@/components/chat-widget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -99,10 +100,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
-      dir="ltr"
+      lang="fa"
+      dir="rtl"
       data-theme="dark"
-      data-lang="en"
+      data-lang="fa"
       suppressHydrationWarning
       style={{ colorScheme: "dark" }}
       className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} ${vazirmatn.variable} antialiased`}
@@ -130,6 +131,7 @@ export default function RootLayout({
           </a>
           <Nav />
           <main id="main">{children}</main>
+          <ChatWidget />
         </LanguageProvider>
       </body>
     </html>
